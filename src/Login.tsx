@@ -7,7 +7,8 @@ function login(setAuthenticated: (authenticated: boolean) => void) {
 
   if (!params.access_token || params.state !== localStorage.getItem('spotifyState')) {
     const scopes = ['playlist-read-private', 'playlist-modify-public'],
-      redirectUri = 'http://localhost:3000',
+      redirectUri =
+        process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://amcolash.github.io/spotify-playlist-generator/',
       clientId = 'c2fc1a6c5ec54aa2819513c41fc6d12f',
       state = Math.random().toString(),
       showDialog = !localStorage.getItem('spotifyState');
