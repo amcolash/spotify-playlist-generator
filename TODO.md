@@ -5,7 +5,7 @@
 - [x] Components!
 - [ ] Better state
 - [x] Make it pretty
-  - [ ] Spinners
+  - [x] Spinners
 - [ ] Github Pages
 - [ ] Github Actions
 

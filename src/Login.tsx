@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Loading } from './Loading';
 import { getHashParams, setSpotifyToken } from './util';
 
 function login(setAuthenticated: (authenticated: boolean) => void) {
@@ -31,7 +32,7 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
     if (!firstAuth) login(props.setAuthenticated);
   }, [props, firstAuth]);
 
-  if (!firstAuth) return <h2>Logging In...</h2>;
+  if (!firstAuth) return <Loading text="Logging In" />;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { style } from 'typestyle';
+import { Loading } from './Loading';
 
 import { Song } from './Song';
 import { UserPlaylists } from './UserPlaylists';
@@ -37,9 +38,9 @@ export function Generate() {
 
   return (
     <div className={generate}>
-      {!playlists && <h2>Loading Your Playlists...</h2>}
+      {!playlists && <Loading text="Loading Your Playlists" />}
       {!loading && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
-      {loading && <h2>Finding Related Music...</h2>}
+      {loading && <Loading text="Finding Related Music" />}
       {generated && (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 60, marginBottom: 14 }}>
@@ -49,7 +50,7 @@ export function Generate() {
             <button onClick={async () => await createPlaylist(generated)}>Save My Playlist</button>
           </div>
           {generated.map((t) => (
-            <Song song={t} />
+            <Song key={t.id} song={t} />
           ))}
         </div>
       )}

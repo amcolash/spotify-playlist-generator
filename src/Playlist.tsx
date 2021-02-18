@@ -8,7 +8,7 @@ const s = style({
       padding: '8px 12px',
 
       cursor: 'pointer',
-      transition: 'all 0.25s',
+      transition: 'background 0.25s',
 
       $nest: {
         '&:hover': {
