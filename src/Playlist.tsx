@@ -2,14 +2,6 @@ import { style } from 'typestyle';
 
 const s = style({
   $nest: {
-    '.cover': {
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: 50,
-      width: 50,
-      border: '1px solid #555',
-    },
-
     '.box': {
       display: 'inline-flex',
       alignItems: 'center',

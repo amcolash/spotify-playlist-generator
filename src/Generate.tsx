@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react';
+import { style } from 'typestyle';
 
 import { Song } from './Song';
 import { UserPlaylists } from './UserPlaylists';
 import { getUserPlaylists, getPlaylist, getRelated, createPlaylist } from './util';
+
+const generate = style({
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  padding: 20,
+  marginLeft: 20,
+});
 
 export function Generate() {
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[] | undefined>();
@@ -10,9 +22,7 @@ export function Generate() {
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[] | undefined>();
 
   useEffect(() => {
-    getUserPlaylists().then((data) => {
-      setPlaylists(data);
-    });
+    getUserPlaylists().then((data) => setPlaylists(data));
   }, []);
 
   const generatePlaylist = async (id: string) => {
@@ -26,19 +36,7 @@ export function Generate() {
   };
 
   return (
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        padding: 20,
-
-        marginLeft: 20,
-      }}
-    >
+    <div className={generate}>
       {!playlists && <h2>Loading Your Playlists...</h2>}
       {!loading && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
       {loading && <h2>Finding Related Music...</h2>}

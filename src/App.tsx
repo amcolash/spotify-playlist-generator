@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { style } from 'typestyle';
+import { useEffect, useState } from 'react';
+import { cssRule, style } from 'typestyle';
 
 import { Generate } from './Generate';
 import { Login } from './Login';
+import { spotify } from './util';
 
-import spotify from './img/Spotify_Logo_RGB_Green.png';
+import spotifyLogo from './img/Spotify_Logo_RGB_Green.png';
 
 const appStyle = style({
   display: 'flex',
@@ -16,17 +17,46 @@ const appStyle = style({
   overflowX: 'hidden',
 });
 
+cssRule('.cover', {
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  height: 50,
+  width: 50,
+  border: '1px solid #555',
+});
+
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();
+
+  useEffect(() => {
+    spotify.getMe().then((data) => setUser(data.body));
+  }, [authenticated]);
 
   return (
     <div className={`App ${appStyle}`}>
       {!authenticated && <Login setAuthenticated={setAuthenticated} />}
       {authenticated && <Generate />}
 
+      {user && (
+        <div style={{ position: 'absolute', top: 10, right: authenticated ? 30 : 20 }}>
+          {user.display_name}
+          <button
+            style={{ marginLeft: 20 }}
+            onClick={() => {
+              localStorage.removeItem('spotifyState');
+              setAuthenticated(false);
+              setUser(undefined);
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      )}
+
       <div style={{ position: 'absolute', bottom: 10, right: authenticated ? 30 : 20, textAlign: 'right' }}>
         <h3 style={{ marginBottom: 10 }}>Powered By</h3>
-        <img src={spotify} style={{ height: 35 }} alt="Spotify Logo" />
+        <img src={spotifyLogo} style={{ height: 35 }} alt="Spotify Logo" />
       </div>
     </div>
   );

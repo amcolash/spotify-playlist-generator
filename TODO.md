@@ -12,7 +12,7 @@
 ## Post-Release
 
 - [ ] Handle re-auth after token expires (60 minutes / 3600 secs)
-  - [ ] Logout Button
+  - [x] Logout Button
 - [ ] Generation options
   - [ ] Shuffle list
   - [ ] Choose playlist size

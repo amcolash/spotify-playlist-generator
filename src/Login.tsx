@@ -29,7 +29,7 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
 
   useEffect(() => {
     if (!firstAuth) login(props.setAuthenticated);
-  }, [props]);
+  }, [props, firstAuth]);
 
   if (!firstAuth) return <h2>Logging In...</h2>;
 

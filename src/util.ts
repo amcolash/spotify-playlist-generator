@@ -13,7 +13,7 @@ export function getHashParams(): { [key: string]: string } {
   return hashParams;
 }
 
-const spotify = new SpotifyWebApi();
+export const spotify = new SpotifyWebApi();
 export function setSpotifyToken(token: string): void {
   spotify.setAccessToken(token);
 }

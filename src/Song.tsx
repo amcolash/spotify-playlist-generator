@@ -4,16 +4,6 @@ const s = style({
   display: 'flex',
   alignItems: 'center',
   margin: 8,
-
-  $nest: {
-    '.cover': {
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: 50,
-      width: 50,
-      border: '1px solid #555',
-    },
-  },
 });
 
 export function Song(props: { song: SpotifyApi.TrackObjectSimplified }) {
