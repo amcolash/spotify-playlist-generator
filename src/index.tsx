@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { cssRule } from 'typestyle';
+import { cssRule, keyframes } from 'typestyle';
 import App from './App';
 
 cssRule('body', {
@@ -22,7 +22,7 @@ cssRule('button', {
   border: 'none',
   color: '#eee',
   textTransform: 'uppercase',
-  transition: 'all 0.25s',
+  transition: 'background 0.25s',
   cursor: 'pointer',
 
   $nest: {
@@ -40,9 +40,16 @@ cssRule('::-webkit-scrollbar-thumb', {
   backgroundColor: '#454a4d',
 });
 
+const fadeIn = keyframes({
+  '0%': { opacity: 0 },
+  '100%': { opacity: 1 },
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div style={{ opacity: 0, animation: fadeIn, animationDelay: '0.5s', animationDuration: '0.25s', animationFillMode: 'forwards' }}>
+      <App />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

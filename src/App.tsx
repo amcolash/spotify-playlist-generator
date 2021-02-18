@@ -30,7 +30,7 @@ function App() {
   const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();
 
   useEffect(() => {
-    spotify.getMe().then((data) => setUser(data.body));
+    if (authenticated) spotify.getMe().then((data) => setUser(data.body));
   }, [authenticated]);
 
   return (
