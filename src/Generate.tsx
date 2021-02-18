@@ -18,29 +18,29 @@ const generate = style({
 });
 
 export function Generate() {
-  const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[] | undefined>();
-  const [loading, setLoading] = useState(false);
-  const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[] | undefined>();
+  const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
 
   useEffect(() => {
     getUserPlaylists().then((data) => setPlaylists(data));
   }, []);
 
   const generatePlaylist = async (id: string) => {
-    setLoading(true);
+    setIsGenerating(true);
 
     const playlist = await getPlaylist(id);
     const related = await getRelated(playlist);
 
-    setLoading(false);
     setGenerated(related);
+    setIsGenerating(false);
   };
 
   return (
     <div className={generate}>
       {!playlists && <Loading text="Loading Your Playlists" />}
-      {!loading && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
-      {loading && <Loading text="Finding Related Music" />}
+      {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
+      {isGenerating && <Loading text="Finding Related Music" />}
       {generated && (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 60, marginBottom: 14 }}>

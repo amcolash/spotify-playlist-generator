@@ -36,8 +36,8 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h1 style={{ marginBottom: 0, fontSize: 72 }}>[NewList]</h1>
-      <h3 style={{ marginTop: 4, marginBottom: 80 }}>Smarter Music Discovery</h3>
+      <h1 style={{ marginBottom: 0, fontSize: 72 }}>[DiscoList]</h1>
+      <h3 style={{ marginTop: 4, marginBottom: 80 }}>Smart Music Discovery</h3>
       <h2>Please Login to Spotify</h2>
       <button onClick={() => login(props.setAuthenticated)}>Login</button>
     </div>

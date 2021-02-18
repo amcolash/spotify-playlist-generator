@@ -33,22 +33,21 @@ function App() {
     if (authenticated) spotify.getMe().then((data) => setUser(data.body));
   }, [authenticated]);
 
+  const logout = () => {
+    localStorage.removeItem('spotifyState');
+    setAuthenticated(false);
+    setUser(undefined);
+  };
+
   return (
     <div className={`App ${appStyle}`}>
       {!authenticated && <Login setAuthenticated={setAuthenticated} />}
       {authenticated && <Generate />}
 
       {user && (
-        <div style={{ position: 'absolute', top: 10, right: authenticated ? 30 : 20 }}>
+        <div style={{ position: 'absolute', top: 20, right: authenticated ? 30 : 20 }}>
           {user.display_name}
-          <button
-            style={{ marginLeft: 20 }}
-            onClick={() => {
-              localStorage.removeItem('spotifyState');
-              setAuthenticated(false);
-              setUser(undefined);
-            }}
-          >
+          <button style={{ marginLeft: 20 }} onClick={() => logout()}>
             Logout
           </button>
         </div>

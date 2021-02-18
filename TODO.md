@@ -3,9 +3,10 @@
 ## Pre-Release
 
 - [x] Components!
-- [ ] Better state
+- [x] Better state (it is better than it was at least...)
 - [x] Make it pretty
   - [x] Spinners
+  - [ ] Icons?
 - [ ] Github Pages
 - [ ] Github Actions
 
