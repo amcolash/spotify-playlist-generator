@@ -58,6 +58,8 @@ export async function getRelated(playlist: SpotifyApi.PlaylistTrackObject[]): Pr
 
     let tracks = '';
     for (let i = 1; i <= playlist.length; i++) {
+      if (playlist[i - 1].is_local) continue;
+
       tracks += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
 
       if (i % 5 === 0) {

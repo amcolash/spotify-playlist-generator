@@ -1,37 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { style } from 'typestyle';
 
 import { Generate } from './Generate';
-import { getHashParams, setSpotifyToken } from './util';
+import { Login } from './Login';
+
+import spotify from './img/Spotify_Logo_RGB_Green.png';
+
+const appStyle = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100vw',
+  height: '100vh',
+  overflowX: 'hidden',
+});
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const params = getHashParams();
+  return (
+    <div className={`App ${appStyle}`}>
+      {!authenticated && <Login setAuthenticated={setAuthenticated} />}
+      {authenticated && <Generate />}
 
-    if (authenticated) return;
-
-    if (!params.access_token || params.state !== localStorage.getItem('spotifyState')) {
-      const scopes = ['playlist-read-private', 'playlist-modify-public'],
-        redirectUri = 'http://localhost:3000',
-        clientId = 'c2fc1a6c5ec54aa2819513c41fc6d12f',
-        state = Math.random().toString(),
-        showDialog = !localStorage.getItem('spotifyState');
-
-      localStorage.setItem('spotifyState', state);
-
-      // Do client-based auth flow
-      const authorizeURL = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${redirectUri}&scope=${scopes}&state=${state}&show_dialog=${showDialog}`;
-      window.location.href = authorizeURL;
-    } else {
-      setAuthenticated(true);
-      setSpotifyToken(params.access_token);
-
-      window.location.hash = '';
-    }
-  }, [authenticated]);
-
-  return <div className="App">{authenticated && <Generate />}</div>;
+      <div style={{ position: 'absolute', bottom: 10, right: authenticated ? 30 : 20, textAlign: 'right' }}>
+        <h3 style={{ marginBottom: 10 }}>Powered By</h3>
+        <img src={spotify} style={{ height: 35 }} alt="Spotify Logo" />
+      </div>
+    </div>
+  );
 }
 
 export default App;

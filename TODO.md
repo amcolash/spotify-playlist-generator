@@ -2,16 +2,21 @@
 
 ## Pre-Release
 
-- [ ] Components!
+- [x] Components!
 - [ ] Better state
-- [ ] Make it pretty
+- [x] Make it pretty
+  - [ ] Spinners
 - [ ] Github Pages
 - [ ] Github Actions
 
 ## Post-Release
 
+- [ ] Handle re-auth after token expires (60 minutes / 3600 secs)
+  - [ ] Logout Button
 - [ ] Generation options
   - [ ] Shuffle list
   - [ ] Choose playlist size
   - [ ] Artist or track seed
-- [ ] Web manifest / icon / mobile friendly
+- [ ] Web manifest / icon / tdb title / mobile friendly
+- [ ] Song previews
+- [ ] Spotify Linking
