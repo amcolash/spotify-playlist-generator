@@ -1,6 +1,7 @@
 {
   "name": "spotify-playlist-generator",
   "version": "0.1.0",
+  "homepage": "https://amcolash.github.io/spotify-playlist-generator/",
   "private": true,
   "dependencies": {
     "react": "^17.0.1",
