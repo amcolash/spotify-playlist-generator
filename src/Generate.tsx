@@ -42,7 +42,7 @@ export function Generate() {
       {loading && <h2>Finding Related Music...</h2>}
       {generated && (
         <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 30, marginBottom: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 60, marginBottom: 14 }}>
             <button onClick={() => setGenerated(undefined)} style={{ marginRight: 30 }}>
               Back
             </button>
