@@ -24,7 +24,7 @@ function App() {
     if (accessToken) return;
 
     if (!params.access_token || params.state !== localStorage.getItem('spotifyState')) {
-      const scopes = ['playlist-read-private'],
+      const scopes = ['playlist-read-private', 'playlist-modify-public'],
         redirectUri = 'http://localhost:3000',
         clientId = 'c2fc1a6c5ec54aa2819513c41fc6d12f',
         state = Math.random().toString(),
