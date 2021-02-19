@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { LogIn } from 'react-feather';
-import { Loading } from './Loading';
+import { media, style } from 'typestyle';
 
+import { Loading } from './Loading';
 import { getHashParams, mobile, setSpotifyToken, shortMobile } from './util';
 
 import icon from './img/icon.svg';
-import { media, style } from 'typestyle';
 
 function login(setAuthenticated: (authenticated: boolean) => void) {
   const params = getHashParams();

@@ -4,9 +4,11 @@
   "homepage": "https://amcolash.github.io/spotify-playlist-generator/",
   "private": true,
   "dependencies": {
+    "@types/react-modal": "^3.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
+    "react-modal": "^3.12.1",
     "react-range": "^1.8.7",
     "react-switch": "^6.0.0",
     "spinners-react": "^1.0.4",

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Check, LogOut } from 'react-feather';
+import Modal from 'react-modal';
 import { media, style } from 'typestyle';
+
 import { Loading } from './Loading';
 import { Options } from './Options';
 
 import { Song } from './Song';
 import { UserPlaylists } from './UserPlaylists';
-import { getUserPlaylists, getPlaylist, getRelated, createPlaylist, mobile } from './util';
+import { getUserPlaylists, getPlaylist, getRelated, createPlaylist, mobile, Colors } from './util';
 
 const generate = style(
   {
@@ -67,9 +69,28 @@ export function Generate(props: { logout: () => void }) {
         </div>
       </button>
 
-      {options.playlist && !isGenerating && !generated && (
+      <Modal
+        isOpen={options.playlist !== undefined && !isGenerating && !generated}
+        onRequestClose={() => setOptions({ ...options, playlist: undefined })}
+        contentLabel="Playlist Generation Options"
+        style={{
+          content: {
+            background: Colors.Black,
+            maxHeight: 500,
+            maxWidth: 650,
+            top: '50%',
+            left: '52%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-46%',
+            transform: 'translate(-52%, -50%)',
+          },
+          overlay: { background: 'rgba(30,30,30,0.95)' },
+        }}
+        bodyOpenClassName="modal-open"
+      >
         <Options options={options} setOptions={setOptions} generatePlaylist={generatePlaylist} />
-      )}
+      </Modal>
 
       {!playlists && <Loading text="Loading Your Playlists" />}
       {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} options={options} setOptions={setOptions} />}

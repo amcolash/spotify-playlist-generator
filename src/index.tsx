@@ -11,6 +11,12 @@ cssRule('body', {
   fontFamily: "'Montserrat', sans-serif",
   fontSize: 20,
   scrollbarColor: '#454a4d #202324',
+
+  $nest: {
+    '&.modal-open': {
+      overflowY: 'hidden',
+    },
+  },
 });
 
 cssRule('button', {

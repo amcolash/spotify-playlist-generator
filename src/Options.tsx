@@ -5,14 +5,19 @@ import Switch from 'react-switch';
 import { GenerateOptions } from './Generate';
 import { Colors } from './util';
 
+import icon from './img/icon.svg';
+
 export function Options(props: { options: GenerateOptions; setOptions: (options: GenerateOptions) => void; generatePlaylist: () => void }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
-      <X onClick={() => props.setOptions({ ...props.options, playlist: undefined })} />
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+      <X
+        onClick={() => props.setOptions({ ...props.options, playlist: undefined })}
+        style={{ position: 'absolute', top: 14, right: 14, cursor: 'pointer' }}
+      />
 
       <h2>Playlist Generation Options</h2>
 
-      <label>Source Playlist: {props.options.playlist!.name}</label>
+      {props.options.playlist && <label>Source Playlist: {props.options.playlist.name}</label>}
 
       <label style={{ marginTop: 24, marginBottom: 12 }}>Playlist Size</label>
       <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginBottom: 10 }}>
@@ -115,8 +120,9 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
         </span>
       </label>
 
-      <button style={{ marginTop: 36 }} onClick={props.generatePlaylist}>
-        DiscoList!
+      <button style={{ marginTop: 36, display: 'flex', alignItems: 'center' }} onClick={props.generatePlaylist}>
+        <img src={icon} style={{ width: 32, filter: 'grayscale(1) brightness(2)', marginRight: 6 }} />
+        DiscoList
       </button>
     </div>
   );
