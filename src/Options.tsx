@@ -127,7 +127,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
       </label>
 
       <button style={{ marginTop: 26, display: 'flex', alignItems: 'center' }} onClick={props.generatePlaylist}>
-        <img src={icon} style={{ width: 32, filter: 'grayscale(1) brightness(2)', marginRight: 6 }} />
+        <img src={icon} style={{ width: 32, filter: 'grayscale(1) brightness(2)', marginRight: 6 }} alt="" />
         DiscoList
       </button>
     </div>
