@@ -61,11 +61,11 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
       <h1 className={title} style={{ margin: 0 }}>
         [DiscoList]
       </h1>
-      <h3 style={{ marginTop: 4 }}>Smart Music Discovery</h3>
+      <h3 style={{ marginTop: 4 }}>Smarter Music Discovery</h3>
       <img className={logo} src={icon} alt="DiscoList logo" />
       <h2 className={signin}>
-        Please Sign In
-        <br /> to Spotify
+        Please sign in
+        <br /> with Spotify
       </h2>
       <button onClick={() => login(props.setAuthenticated)}>
         <div style={{ display: 'flex', alignItems: 'center' }}>

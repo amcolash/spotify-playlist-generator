@@ -36,7 +36,7 @@ export function Generate(props: { logout: () => void }) {
 
   const [options, setOptions] = useState<GenerateOptions>({
     shuffle: false,
-    resultsPerGroup: 10,
+    resultsPerGroup: 5,
     trackSeed: true,
   });
 
@@ -76,9 +76,8 @@ export function Generate(props: { logout: () => void }) {
         contentLabel="Playlist Generation Options"
         style={{
           content: {
+            maxHeight: 'calc(95vh - 40px)',
             background: Colors.Black,
-            maxHeight: 500,
-            maxWidth: 650,
             top: '50%',
             left: '52%',
             right: 'auto',
