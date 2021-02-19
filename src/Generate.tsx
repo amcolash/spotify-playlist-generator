@@ -24,6 +24,20 @@ const generate = style(
   media(mobile, { paddingBottom: 55 })
 );
 
+const back = style(
+  {
+    margin: '0 10px',
+  },
+  media(mobile, { marginBottom: 30 })
+);
+
+const buttonInput = style(
+  {
+    margin: '0 10px',
+  },
+  media(mobile, { marginBottom: 10 })
+);
+
 export interface GenerateOptions {
   shuffle: boolean;
   resultsPerGroup: number;
@@ -100,34 +114,40 @@ export function Generate(props: { logout: () => void }) {
         <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 14 }}>
             <button
+              className={back}
               onClick={() => {
                 setGenerated(undefined);
                 setPlaylistLink(undefined);
                 setNewPlaylistName('');
               }}
-              style={{ marginRight: 30 }}
             >
               Back
             </button>
             {!playlistLink && (
               <input
+                className={buttonInput}
                 value={newPlaylistName}
                 onChange={(e) => setNewPlaylistName(e.target.value)}
                 placeholder="New Playlist Name"
-                style={{ marginRight: 10, borderRadius: 6, border: 'none', padding: 8 }}
+                style={{ borderRadius: 6, border: 'none', padding: 8 }}
               />
             )}
             {playlistLink && (
-              <button onClick={() => window.open(playlistLink, '_blank')} style={{ display: 'flex', alignItems: 'center' }}>
-                <Check style={{ marginRight: 6 }} /> Open Playlist
+              <button
+                className={buttonInput}
+                onClick={() => window.open(playlistLink, '_blank')}
+                style={{ display: 'flex', alignItems: 'center' }}
+              >
+                <Check style={{ margin: '0 10px' }} /> Open Playlist
               </button>
             )}
             {!playlistLink && (
               <button
+                className={buttonInput}
                 disabled={newPlaylistName.length === 0}
                 onClick={async () => await createPlaylist(generated, setPlaylistLink, newPlaylistName)}
               >
-                Save My Playlist
+                Save New Playlist
               </button>
             )}
           </div>
