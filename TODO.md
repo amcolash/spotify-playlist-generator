@@ -15,9 +15,11 @@
 - [x] Handle re-auth after token expires (60 minutes / 3600 secs) - not very good, but it works...
   - [x] Logout Button
 - [ ] Generation options
-  - [ ] Shuffle list
-  - [ ] Choose playlist size
-  - [ ] Artist or track seed
+  - [x] Shuffle list
+  - [x] Choose playlist size
+  - [x] Artist or track seed
+  - [ ] Modal
+  - [ ] Refactor Slider Options?
 - [x] Web manifest / icon / tdb title
 - [x] Mobile friendly
 - [ ] Song previews

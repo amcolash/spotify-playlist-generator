@@ -1,7 +1,15 @@
 import SpotifyWebApi from 'spotify-web-api-node';
+import { GenerateOptions } from './Generate';
 
 export const mobile = { maxWidth: 450 };
 export const shortMobile = { maxHeight: 575 };
+
+export const Colors = {
+  White: '#EEEEEE',
+  Green: '#179433',
+  GreenHover: '#18AC4D',
+  Black: '#151515',
+};
 
 // Useful code from https://stackoverflow.com/questions/58964265/spotify-implicit-grant-flow-with-react-user-login
 export function getHashParams(): { [key: string]: string } {
@@ -14,6 +22,27 @@ export function getHashParams(): { [key: string]: string } {
     e = r.exec(q);
   }
   return hashParams;
+}
+
+// From https://stackoverflow.com/a/2450976/2303432
+export function shuffle(array: any[]) {
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 export const spotify = new SpotifyWebApi();
@@ -71,19 +100,30 @@ export async function getPlaylist(id: string): Promise<SpotifyApi.PlaylistTrackO
   return paginationHelper((page: number) => spotify.getPlaylistTracks(id, { limit: 100, offset: page * 100 }));
 }
 
-export async function getRelated(playlist: SpotifyApi.PlaylistTrackObject[]): Promise<SpotifyApi.TrackObjectSimplified[]> {
+export async function getRelated(
+  playlist: SpotifyApi.PlaylistTrackObject[],
+  options: GenerateOptions
+): Promise<SpotifyApi.TrackObjectSimplified[]> {
   return new Promise(async (resolve, reject) => {
     const related: SpotifyApi.TrackObjectSimplified[] = [];
 
-    let tracks = '';
+    if (options.shuffle) shuffle(playlist);
+
+    let seeds = '';
     for (let i = 1; i <= playlist.length; i++) {
       if (playlist[i - 1].is_local) continue;
 
-      tracks += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
+      if (options.trackSeed) seeds += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
+      else seeds += playlist[i - 1].track.artists[0].id + (i % 5 !== 0 ? ',' : '');
 
       if (i % 5 === 0) {
         try {
-          const rec = await spotify.getRecommendations({ seed_tracks: tracks, limit: 10 });
+          let rec;
+          rec = await spotify.getRecommendations({
+            seed_tracks: options.trackSeed ? seeds : undefined,
+            seed_artists: options.trackSeed ? undefined : seeds,
+            limit: options.resultsPerGroup,
+          });
 
           // Ensure there are no duplicated. Can't use a Set here since {} !== {}
           rec.body.tracks.forEach((t) => {
@@ -91,7 +131,7 @@ export async function getRelated(playlist: SpotifyApi.PlaylistTrackObject[]): Pr
             if (found === -1) related.push(t);
           });
 
-          tracks = '';
+          seeds = '';
         } catch (error) {
           handleError(error);
           return;

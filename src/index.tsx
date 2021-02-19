@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { cssRule, keyframes } from 'typestyle';
 import App from './App';
+import { Colors } from './util';
 
 cssRule('body', {
   margin: 0,
-  background: '#151515',
-  color: '#eee',
+  background: Colors.Black,
+  color: Colors.White,
   fontFamily: "'Montserrat', sans-serif",
   fontSize: 20,
   scrollbarColor: '#454a4d #202324',
@@ -18,16 +19,16 @@ cssRule('button', {
   minWidth: 100,
   padding: 10,
   borderRadius: 500,
-  background: '#179433',
+  background: Colors.Green,
   border: 'none',
-  color: '#eee',
+  color: Colors.White,
   textTransform: 'uppercase',
   transition: 'background 0.25s',
   cursor: 'pointer',
 
   $nest: {
     '&:hover': {
-      background: '#18AC4D',
+      background: Colors.GreenHover,
     },
   },
 });
@@ -45,7 +46,13 @@ const fadeIn = keyframes({
   '100%': { opacity: 1 },
 });
 
-if (window.screen && window.screen.orientation && window.screen.orientation.lock) window.screen.orientation.lock('portrait');
+if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+  try {
+    window.screen.orientation.lock('portrait');
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 ReactDOM.render(
   <React.StrictMode>

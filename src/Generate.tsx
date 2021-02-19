@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Check, LogOut } from 'react-feather';
 import { media, style } from 'typestyle';
 import { Loading } from './Loading';
+import { Options } from './Options';
 
 import { Song } from './Song';
 import { UserPlaylists } from './UserPlaylists';
@@ -21,8 +22,22 @@ const generate = style(
   media(mobile, { paddingBottom: 55 })
 );
 
+export interface GenerateOptions {
+  shuffle: boolean;
+  resultsPerGroup: number;
+  trackSeed: boolean;
+  playlist?: SpotifyApi.PlaylistObjectSimplified;
+}
+
 export function Generate(props: { logout: () => void }) {
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
+
+  const [options, setOptions] = useState<GenerateOptions>({
+    shuffle: false,
+    resultsPerGroup: 10,
+    trackSeed: true,
+  });
+
   const [isGenerating, setIsGenerating] = useState(false);
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
   const [playlistLink, setPlaylistLink] = useState<string>();
@@ -31,11 +46,13 @@ export function Generate(props: { logout: () => void }) {
     getUserPlaylists().then((data) => setPlaylists(data));
   }, []);
 
-  const generatePlaylist = async (id: string) => {
+  const generatePlaylist = async () => {
+    if (!options.playlist) return;
+
     setIsGenerating(true);
 
-    const playlist = await getPlaylist(id);
-    const related = await getRelated(playlist);
+    const playlist = await getPlaylist(options.playlist.id);
+    const related = await getRelated(playlist, options);
 
     setGenerated(related);
     setIsGenerating(false);
@@ -50,8 +67,12 @@ export function Generate(props: { logout: () => void }) {
         </div>
       </button>
 
+      {options.playlist && !isGenerating && !generated && (
+        <Options options={options} setOptions={setOptions} generatePlaylist={generatePlaylist} />
+      )}
+
       {!playlists && <Loading text="Loading Your Playlists" />}
-      {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
+      {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} options={options} setOptions={setOptions} />}
       {isGenerating && <Loading text="Finding Related Music" />}
       {generated && (
         <div style={{ width: '100%' }}>
