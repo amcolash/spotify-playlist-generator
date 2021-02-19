@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { LogIn } from 'react-feather';
 import { Loading } from './Loading';
 
-import { getHashParams, setSpotifyToken } from './util';
+import { getHashParams, mobile, setSpotifyToken, shortMobile } from './util';
 
 import icon from './img/icon.svg';
+import { media, style } from 'typestyle';
 
 function login(setAuthenticated: (authenticated: boolean) => void) {
   const params = getHashParams();
@@ -30,6 +31,22 @@ function login(setAuthenticated: (authenticated: boolean) => void) {
   }
 }
 
+const container = style(
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    height: '100vh',
+  },
+  media(mobile, { height: 'calc(100vh - 46px)' })
+);
+
+const title = style({ fontSize: 72 }, media(mobile, { fontSize: 52 }));
+const logo = style({ height: 156, margin: 42 }, media(mobile, { height: 156, margin: 16 }), media(shortMobile, { margin: 0 }));
+const signin = style();
+
 export function Login(props: { setAuthenticated: (authenticated: boolean) => void }) {
   const firstAuth = !localStorage.getItem('spotifyState');
 
@@ -40,11 +57,13 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
   if (!firstAuth) return <Loading text="Logging In" />;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
-      <h1 style={{ margin: 0, fontSize: 72 }}>[DiscoList]</h1>
+    <div className={container}>
+      <h1 className={title} style={{ margin: 0 }}>
+        [DiscoList]
+      </h1>
       <h3 style={{ marginTop: 4 }}>Smart Music Discovery</h3>
-      <img src={icon} style={{ height: 156, margin: 16, marginBottom: 80 }} />
-      <h2>
+      <img className={logo} src={icon} alt="DiscoList logo" />
+      <h2 className={signin}>
         Please Sign In
         <br /> to Spotify
       </h2>

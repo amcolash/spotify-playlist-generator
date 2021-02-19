@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { LogOut } from 'react-feather';
-import { cssRule, style } from 'typestyle';
+import { cssRule, media, style } from 'typestyle';
 
 import { Generate } from './Generate';
 import { Login } from './Login';
+import { mobile } from './util';
 
 import spotifyLogo from './img/Spotify_Logo_RGB_Green.png';
 
@@ -12,8 +12,6 @@ const appStyle = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  width: '100vw',
-  height: '100vh',
   overflowX: 'hidden',
 });
 
@@ -22,8 +20,22 @@ cssRule('.cover', {
   backgroundPosition: 'center',
   height: 50,
   width: 50,
+  minWidth: 50,
   border: '1px solid #555',
 });
+
+const footer = style(
+  {
+    position: 'fixed',
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    padding: '8px 5px 0',
+    background: 'rgba(0,0,0,0.85)',
+  },
+  media(mobile, { left: 0, justifyContent: 'center' })
+);
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -36,22 +48,11 @@ function App() {
   return (
     <div className={`App ${appStyle}`}>
       {!authenticated && <Login setAuthenticated={setAuthenticated} />}
-      {authenticated && <Generate />}
+      {authenticated && <Generate logout={logout} />}
 
-      {authenticated && (
-        <div style={{ position: 'absolute', top: 20, right: 30 }}>
-          <button onClick={() => logout()}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <LogOut style={{ marginRight: 10 }} />
-              Sign Out
-            </div>
-          </button>
-        </div>
-      )}
-
-      <div style={{ position: 'absolute', bottom: 10, right: authenticated ? 30 : 20, textAlign: 'right' }}>
-        <h3 style={{ marginBottom: 10 }}>Powered By</h3>
-        <a href="https://spotify.com" target="_blank" rel="noreferrer">
+      <div className={footer}>
+        <h3 style={{ margin: 0, marginBottom: 8 }}>Powered By</h3>
+        <a href="https://spotify.com" target="_blank" rel="noreferrer" style={{ marginLeft: 12 }}>
           <img src={spotifyLogo} style={{ height: 35 }} alt="Spotify Logo" />
         </a>
       </div>

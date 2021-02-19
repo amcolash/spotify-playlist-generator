@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Check } from 'react-feather';
-import { style } from 'typestyle';
+import { Check, LogOut } from 'react-feather';
+import { media, style } from 'typestyle';
 import { Loading } from './Loading';
 
 import { Song } from './Song';
 import { UserPlaylists } from './UserPlaylists';
-import { getUserPlaylists, getPlaylist, getRelated, createPlaylist } from './util';
+import { getUserPlaylists, getPlaylist, getRelated, createPlaylist, mobile } from './util';
 
-const generate = style({
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  padding: 20,
-  marginLeft: 20,
-});
+const generate = style(
+  {
+    height: 'calc(100% - 40px)',
+    width: 'calc(100% - 40px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: 20,
+  },
+  media(mobile, { paddingBottom: 55 })
+);
 
-export function Generate() {
+export function Generate(props: { logout: () => void }) {
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
   const [isGenerating, setIsGenerating] = useState(false);
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
@@ -40,12 +42,19 @@ export function Generate() {
 
   return (
     <div className={generate}>
+      <button onClick={() => props.logout()} style={{ marginBottom: 30 }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <LogOut style={{ marginRight: 10 }} />
+          Sign Out
+        </div>
+      </button>
+
       {!playlists && <Loading text="Loading Your Playlists" />}
       {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
       {isGenerating && <Loading text="Finding Related Music" />}
       {generated && (
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 60, marginBottom: 14 }}>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 14 }}>
             <button onClick={() => setGenerated(undefined)} style={{ marginRight: 30 }}>
               Back
             </button>

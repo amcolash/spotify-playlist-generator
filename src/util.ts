@@ -1,5 +1,8 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
+export const mobile = { maxWidth: 450 };
+export const shortMobile = { maxHeight: 575 };
+
 // Useful code from https://stackoverflow.com/questions/58964265/spotify-implicit-grant-flow-with-react-user-login
 export function getHashParams(): { [key: string]: string } {
   const hashParams: { [key: string]: string } = {};
