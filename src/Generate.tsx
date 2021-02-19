@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Check } from 'react-feather';
 import { style } from 'typestyle';
 import { Loading } from './Loading';
 
@@ -21,6 +22,7 @@ export function Generate() {
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
   const [isGenerating, setIsGenerating] = useState(false);
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
+  const [playlistLink, setPlaylistLink] = useState<string>();
 
   useEffect(() => {
     getUserPlaylists().then((data) => setPlaylists(data));
@@ -47,7 +49,12 @@ export function Generate() {
             <button onClick={() => setGenerated(undefined)} style={{ marginRight: 30 }}>
               Back
             </button>
-            <button onClick={async () => await createPlaylist(generated)}>Save My Playlist</button>
+            {playlistLink && (
+              <button onClick={() => window.open(playlistLink, '_blank')}>
+                <Check /> Open Playlist
+              </button>
+            )}
+            {!playlistLink && <button onClick={async () => await createPlaylist(generated, setPlaylistLink)}>Save My Playlist</button>}
           </div>
           {generated.map((t) => (
             <Song key={t.id} song={t} />

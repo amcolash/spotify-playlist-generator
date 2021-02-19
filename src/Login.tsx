@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
+import { LogIn } from 'react-feather';
 import { Loading } from './Loading';
+
 import { getHashParams, setSpotifyToken } from './util';
+
+import icon from './img/icon.svg';
 
 function login(setAuthenticated: (authenticated: boolean) => void) {
   const params = getHashParams();
@@ -36,11 +40,20 @@ export function Login(props: { setAuthenticated: (authenticated: boolean) => voi
   if (!firstAuth) return <Loading text="Logging In" />;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h1 style={{ marginBottom: 0, fontSize: 72 }}>[DiscoList]</h1>
-      <h3 style={{ marginTop: 4, marginBottom: 80 }}>Smart Music Discovery</h3>
-      <h2>Please Login to Spotify</h2>
-      <button onClick={() => login(props.setAuthenticated)}>Login</button>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+      <h1 style={{ margin: 0, fontSize: 72 }}>[DiscoList]</h1>
+      <h3 style={{ marginTop: 4 }}>Smart Music Discovery</h3>
+      <img src={icon} style={{ height: 156, margin: 16, marginBottom: 80 }} />
+      <h2>
+        Please Sign In
+        <br /> to Spotify
+      </h2>
+      <button onClick={() => login(props.setAuthenticated)}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <LogIn style={{ marginRight: 10 }} />
+          Sign In
+        </div>
+      </button>
     </div>
   );
 }

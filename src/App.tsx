@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { LogOut } from 'react-feather';
 import { cssRule, style } from 'typestyle';
 
 import { Generate } from './Generate';
 import { Login } from './Login';
-import { spotify } from './util';
 
 import spotifyLogo from './img/Spotify_Logo_RGB_Green.png';
 
@@ -27,16 +27,10 @@ cssRule('.cover', {
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();
-
-  useEffect(() => {
-    if (authenticated) spotify.getMe().then((data) => setUser(data.body));
-  }, [authenticated]);
 
   const logout = () => {
     localStorage.removeItem('spotifyState');
     setAuthenticated(false);
-    setUser(undefined);
   };
 
   return (
@@ -44,18 +38,22 @@ function App() {
       {!authenticated && <Login setAuthenticated={setAuthenticated} />}
       {authenticated && <Generate />}
 
-      {user && (
-        <div style={{ position: 'absolute', top: 20, right: authenticated ? 30 : 20 }}>
-          {user.display_name}
-          <button style={{ marginLeft: 20 }} onClick={() => logout()}>
-            Logout
+      {authenticated && (
+        <div style={{ position: 'absolute', top: 20, right: 30 }}>
+          <button onClick={() => logout()}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <LogOut style={{ marginRight: 10 }} />
+              Sign Out
+            </div>
           </button>
         </div>
       )}
 
       <div style={{ position: 'absolute', bottom: 10, right: authenticated ? 30 : 20, textAlign: 'right' }}>
         <h3 style={{ marginBottom: 10 }}>Powered By</h3>
-        <img src={spotifyLogo} style={{ height: 35 }} alt="Spotify Logo" />
+        <a href="https://spotify.com" target="_blank" rel="noreferrer">
+          <img src={spotifyLogo} style={{ height: 35 }} alt="Spotify Logo" />
+        </a>
       </div>
     </div>
   );

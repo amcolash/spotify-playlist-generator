@@ -18,6 +18,17 @@ export function setSpotifyToken(token: string): void {
   spotify.setAccessToken(token);
 }
 
+export function handleError(error: any): void {
+  debugger;
+
+  const lastReload = Number.parseInt(localStorage.getItem('spotifyLastError') || '0');
+
+  if (Date.now() - lastReload > 5000) {
+    localStorage.setItem('spotifyLastError', Date.now().toString());
+    window.location.reload();
+  }
+}
+
 // Uff, that is a bit generic ;)
 async function paginationHelper<T>(
   getData: (
@@ -34,10 +45,15 @@ async function paginationHelper<T>(
     let page = 0;
 
     while (page >= 0) {
-      const data = await getData(page);
-      allData.push(...(data.body.items as any[]));
+      try {
+        const data = await getData(page);
+        allData.push(...(data.body.items as any[]));
 
-      page = data.body.next ? page + 1 : -1;
+        page = data.body.next ? page + 1 : -1;
+      } catch (error) {
+        handleError(error);
+        return;
+      }
     }
 
     resolve(allData);
@@ -63,15 +79,20 @@ export async function getRelated(playlist: SpotifyApi.PlaylistTrackObject[]): Pr
       tracks += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
 
       if (i % 5 === 0) {
-        const rec = await spotify.getRecommendations({ seed_tracks: tracks, limit: 10 });
+        try {
+          const rec = await spotify.getRecommendations({ seed_tracks: tracks, limit: 10 });
 
-        // Ensure there are no duplicated. Can't use a Set here since {} !== {}
-        rec.body.tracks.forEach((t) => {
-          const found = related.findIndex((f) => f.id === t.id);
-          if (found === -1) related.push(t);
-        });
+          // Ensure there are no duplicated. Can't use a Set here since {} !== {}
+          rec.body.tracks.forEach((t) => {
+            const found = related.findIndex((f) => f.id === t.id);
+            if (found === -1) related.push(t);
+          });
 
-        tracks = '';
+          tracks = '';
+        } catch (error) {
+          handleError(error);
+          return;
+        }
       }
     }
 
@@ -79,7 +100,10 @@ export async function getRelated(playlist: SpotifyApi.PlaylistTrackObject[]): Pr
   });
 }
 
-export async function createPlaylist(generated: SpotifyApi.TrackObjectSimplified[]): Promise<void> {
+export async function createPlaylist(
+  generated: SpotifyApi.TrackObjectSimplified[],
+  setPlaylistLink: (link: string) => void
+): Promise<void> {
   return new Promise(async (resolve, reject) => {
     const name = prompt('Name of playlist?');
     if (!name || name.length === 0) {
@@ -87,16 +111,21 @@ export async function createPlaylist(generated: SpotifyApi.TrackObjectSimplified
       return;
     }
 
-    const p = await spotify.createPlaylist(name);
+    try {
+      const p = await spotify.createPlaylist(name);
 
-    for (let i = 0; i < generated.length; i += 100) {
-      await spotify.addTracksToPlaylist(
-        p.body.id,
-        generated.slice(i, i + 100).map((t) => t.uri)
-      );
+      for (let i = 0; i < generated.length; i += 100) {
+        await spotify.addTracksToPlaylist(
+          p.body.id,
+          generated.slice(i, i + 100).map((t) => t.uri)
+        );
+      }
+
+      setPlaylistLink(p.body.external_urls.spotify);
+    } catch (error) {
+      handleError(error);
+      return;
     }
-
-    window.open(p.body.external_urls.spotify, '_blank');
 
     resolve();
   });
