@@ -2,6 +2,10 @@
 
 Generate spotify playlists based on existing ones to discover new music
 
+## Live Version
+
+Check it out here: https://amcolash.github.io/spotify-playlist-generator
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
