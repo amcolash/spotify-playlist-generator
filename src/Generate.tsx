@@ -11,6 +11,7 @@ const generate = style(
   {
     height: 'calc(100% - 40px)',
     width: 'calc(100% - 40px)',
+    maxWidth: 800,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +54,7 @@ export function Generate(props: { logout: () => void }) {
       {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} generatePlaylist={generatePlaylist} />}
       {isGenerating && <Loading text="Finding Related Music" />}
       {generated && (
-        <div>
+        <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 14 }}>
             <button onClick={() => setGenerated(undefined)} style={{ marginRight: 30 }}>
               Back

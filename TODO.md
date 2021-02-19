@@ -19,7 +19,7 @@
   - [ ] Choose playlist size
   - [ ] Artist or track seed
 - [x] Web manifest / icon / tdb title
-- [ ] Mobile friendly
+- [x] Mobile friendly
 - [ ] Song previews
 - [ ] Spotify Linking
   - [x] Playlist
