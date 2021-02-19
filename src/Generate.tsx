@@ -56,6 +56,7 @@ export function Generate(props: { logout: () => void }) {
     const playlist = await getPlaylist(options.playlist.id);
     const related = await getRelated(playlist, options);
 
+    setOptions({ ...options, playlist: undefined });
     setGenerated(related);
     setIsGenerating(false);
   };

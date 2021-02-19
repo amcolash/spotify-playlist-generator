@@ -18,7 +18,7 @@
   - [x] Shuffle list
   - [x] Choose playlist size
   - [x] Artist or track seed
-  - [ ] Modal
+  - [x] Modal
   - [ ] Refactor Slider Options?
 - [x] Web manifest / icon / tdb title
 - [x] Mobile friendly
