@@ -31,8 +31,8 @@ const footer = style(
     bottom: 0,
     display: 'flex',
     alignItems: 'center',
-    padding: '8px 5px 0',
-    background: 'rgba(0,0,0,0.85)',
+    padding: '8px 10px 0',
+    background: 'rgba(0,0,0,0.75)',
   },
   media(mobile, { left: 0, justifyContent: 'center' })
 );

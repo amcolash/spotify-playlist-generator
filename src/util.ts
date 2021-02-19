@@ -145,17 +145,12 @@ export async function getRelated(
 
 export async function createPlaylist(
   generated: SpotifyApi.TrackObjectSimplified[],
-  setPlaylistLink: (link: string) => void
+  setPlaylistLink: (link: string) => void,
+  newPlaylistName: string
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    const name = prompt('Name of playlist?');
-    if (!name || name.length === 0) {
-      reject();
-      return;
-    }
-
     try {
-      const p = await spotify.createPlaylist(name);
+      const p = await spotify.createPlaylist(newPlaylistName);
 
       for (let i = 0; i < generated.length; i += 100) {
         await spotify.addTracksToPlaylist(

@@ -29,12 +29,15 @@ cssRule('button', {
   border: 'none',
   color: Colors.White,
   textTransform: 'uppercase',
-  transition: 'background 0.25s',
-  cursor: 'pointer',
+  transition: 'background 0.25s, filter 0.25s',
 
   $nest: {
-    '&:hover': {
+    '&:enabled:hover': {
       background: Colors.GreenHover,
+      cursor: 'pointer',
+    },
+    '&:disabled': {
+      filter: 'grayscale(1)',
     },
   },
 });

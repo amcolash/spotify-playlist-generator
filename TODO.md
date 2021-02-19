@@ -20,9 +20,11 @@
   - [x] Artist or track seed
   - [x] Modal
   - [ ] Refactor Slider Options?
+- [x] Input for playlist name
 - [x] Web manifest / icon / tdb title
 - [x] Mobile friendly
 - [ ] Song previews
 - [ ] Spotify Linking
   - [x] Playlist
   - [ ] Songs?
+- [ ] Blog Post

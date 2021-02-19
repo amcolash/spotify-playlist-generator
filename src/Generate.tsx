@@ -42,6 +42,7 @@ export function Generate(props: { logout: () => void }) {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
+  const [newPlaylistName, setNewPlaylistName] = useState('');
   const [playlistLink, setPlaylistLink] = useState<string>();
 
   useEffect(() => {
@@ -98,15 +99,37 @@ export function Generate(props: { logout: () => void }) {
       {generated && (
         <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 14 }}>
-            <button onClick={() => setGenerated(undefined)} style={{ marginRight: 30 }}>
+            <button
+              onClick={() => {
+                setGenerated(undefined);
+                setPlaylistLink(undefined);
+                setNewPlaylistName('');
+              }}
+              style={{ marginRight: 30 }}
+            >
               Back
             </button>
+            {!playlistLink && (
+              <input
+                value={newPlaylistName}
+                onChange={(e) => setNewPlaylistName(e.target.value)}
+                placeholder="New Playlist Name"
+                style={{ marginRight: 10, borderRadius: 6, border: 'none', padding: 8 }}
+              />
+            )}
             {playlistLink && (
-              <button onClick={() => window.open(playlistLink, '_blank')}>
-                <Check /> Open Playlist
+              <button onClick={() => window.open(playlistLink, '_blank')} style={{ display: 'flex', alignItems: 'center' }}>
+                <Check style={{ marginRight: 6 }} /> Open Playlist
               </button>
             )}
-            {!playlistLink && <button onClick={async () => await createPlaylist(generated, setPlaylistLink)}>Save My Playlist</button>}
+            {!playlistLink && (
+              <button
+                disabled={newPlaylistName.length === 0}
+                onClick={async () => await createPlaylist(generated, setPlaylistLink, newPlaylistName)}
+              >
+                Save My Playlist
+              </button>
+            )}
           </div>
           {generated.map((t) => (
             <Song key={t.id} song={t} />
