@@ -9,7 +9,7 @@ export const Colors = {
   Green: '#179433',
   GreenHover: '#18AC4D',
   Grey: '#333333',
-  Black: '#151515',
+  Black: '#191414',
 };
 
 // Useful code from https://stackoverflow.com/questions/58964265/spotify-implicit-grant-flow-with-react-user-login

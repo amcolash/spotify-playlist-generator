@@ -67,7 +67,7 @@ function App() {
 
       <div className={footer}>
         <h3 style={{ margin: 0, marginBottom: 8 }}>Powered By</h3>
-        <a href="https://spotify.com" target="_blank" rel="noreferrer" style={{ marginLeft: 12 }}>
+        <a href="https://spotify.com" target="_blank" rel="noreferrer" style={{ marginLeft: 16 }}>
           <img src={spotifyLogo} style={{ height: 35 }} alt="Spotify Logo" />
         </a>
       </div>

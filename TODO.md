@@ -27,4 +27,5 @@
 - [x] Spotify Linking
   - [x] Playlist
   - [x] Songs?
+- [ ] Little tutorial pages (choose a playlist and some options to generate new stuff, click on icons to open in spotify, remove / play items in the generated list)
 - [ ] Blog Post
