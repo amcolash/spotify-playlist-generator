@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-import { AlertCircle, AlertOctagon, HelpCircle, Volume2, VolumeX, XCircle } from 'react-feather';
+import { AlertOctagon, Volume2, XCircle } from 'react-feather';
 import { classes, style } from 'typestyle';
 
 import { Colors } from './util';

@@ -3,7 +3,7 @@ import { cssRule, media, style } from 'typestyle';
 
 import { Generate } from './Generate';
 import { Login } from './Login';
-import { Colors, mobile } from './util';
+import { mobile } from './util';
 
 import spotifyLogo from './img/Spotify_Logo_RGB_Green.png';
 
