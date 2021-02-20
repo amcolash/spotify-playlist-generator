@@ -8,6 +8,7 @@ export const Colors = {
   White: '#EEEEEE',
   Green: '#179433',
   GreenHover: '#18AC4D',
+  Grey: '#333333',
   Black: '#151515',
 };
 
@@ -116,7 +117,7 @@ export async function getRelated(
       if (options.trackSeed) seeds += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
       else seeds += playlist[i - 1].track.artists[0].id + (i % 5 !== 0 ? ',' : '');
 
-      if (i % 5 === 0) {
+      if (i % 5 === 0 || i === playlist.length) {
         try {
           let rec;
           rec = await spotify.getRecommendations({

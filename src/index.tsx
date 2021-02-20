@@ -32,12 +32,20 @@ cssRule('button', {
   transition: 'background 0.25s, filter 0.25s',
 
   $nest: {
-    '&:enabled:hover': {
+    '&:not(.noButton):enabled:hover': {
       background: Colors.GreenHover,
       cursor: 'pointer',
     },
     '&:disabled': {
       filter: 'grayscale(1)',
+    },
+
+    '&.noButton': {
+      background: 'none',
+      padding: 0,
+      minWidth: 42,
+      fontSize: 0,
+      borderRadius: 0,
     },
   },
 });

@@ -23,8 +23,8 @@
 - [x] Input for playlist name
 - [x] Web manifest / icon / tdb title
 - [x] Mobile friendly
-- [ ] Song previews
-- [ ] Spotify Linking
+- [x] Song previews
+- [x] Spotify Linking
   - [x] Playlist
-  - [ ] Songs?
+  - [x] Songs?
 - [ ] Blog Post

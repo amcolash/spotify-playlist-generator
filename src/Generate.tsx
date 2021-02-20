@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Check, LogOut } from 'react-feather';
+import { useCallback, useEffect, useState } from 'react';
+import { Check, LogOut, Volume2, VolumeX } from 'react-feather';
 import Modal from 'react-modal';
 import { media, style } from 'typestyle';
 
@@ -28,14 +28,14 @@ const back = style(
   {
     margin: '0 10px',
   },
-  media(mobile, { marginBottom: 30 })
+  media(mobile, { margin: '10px 40px 36px' })
 );
 
 const buttonInput = style(
   {
     margin: '0 10px',
   },
-  media(mobile, { marginBottom: 10 })
+  media(mobile, { margin: '10px 40px' })
 );
 
 export interface GenerateOptions {
@@ -56,14 +56,17 @@ export function Generate(props: { logout: () => void }) {
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
+
   const [newPlaylistName, setNewPlaylistName] = useState('');
   const [playlistLink, setPlaylistLink] = useState<string>();
+
+  const [audioPreview, setAudioPreview] = useState(true);
 
   useEffect(() => {
     getUserPlaylists().then((data) => setPlaylists(data));
   }, []);
 
-  const generatePlaylist = async () => {
+  const generatePlaylist = useCallback(async () => {
     if (!options.playlist) return;
 
     setIsGenerating(true);
@@ -74,16 +77,26 @@ export function Generate(props: { logout: () => void }) {
     setOptions({ ...options, playlist: undefined });
     setGenerated(related);
     setIsGenerating(false);
-  };
+  }, [options]);
 
   return (
     <div className={generate}>
-      <button onClick={() => props.logout()} style={{ marginBottom: 30 }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <LogOut style={{ marginRight: 10 }} />
-          Sign Out
-        </div>
-      </button>
+      <div style={{ display: 'flex', width: '100%', marginBottom: 30, position: 'relative' }}>
+        <div style={{ flex: 1 }} />
+        <button onClick={() => props.logout()}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <LogOut style={{ marginRight: 10 }} />
+            Sign Out
+          </div>
+        </button>
+        <div style={{ flex: 1 }} />
+
+        {generated && (
+          <button className="noButton" onClick={() => setAudioPreview(!audioPreview)} style={{ position: 'absolute', top: 0, right: 0 }}>
+            {audioPreview ? <Volume2 className="iconButton" /> : <VolumeX className="iconButton" />}
+          </button>
+        )}
+      </div>
 
       <Modal
         isOpen={options.playlist !== undefined && !isGenerating && !generated}
@@ -103,6 +116,7 @@ export function Generate(props: { logout: () => void }) {
           overlay: { background: 'rgba(30,30,30,0.95)' },
         }}
         bodyOpenClassName="modal-open"
+        appElement={document.querySelector('.App') || undefined}
       >
         <Options options={options} setOptions={setOptions} generatePlaylist={generatePlaylist} />
       </Modal>
@@ -112,7 +126,7 @@ export function Generate(props: { logout: () => void }) {
       {isGenerating && <Loading text="Finding Related Music" />}
       {generated && (
         <div style={{ width: '100%' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20, marginBottom: 14 }}>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginTop: '20px 0' }}>
             <button
               className={back}
               onClick={() => {
@@ -152,7 +166,7 @@ export function Generate(props: { logout: () => void }) {
             )}
           </div>
           {generated.map((t) => (
-            <Song key={t.id} song={t} />
+            <Song key={t.id} song={t} generated={generated} setGenerated={setGenerated} audioPreview={audioPreview} />
           ))}
         </div>
       )}
