@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { cssRule, keyframes } from 'typestyle';
+
 import App from './App';
+
 import { Colors } from './util';
 
 cssRule('body', {

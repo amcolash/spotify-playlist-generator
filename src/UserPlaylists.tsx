@@ -1,4 +1,5 @@
 import { media, style } from 'typestyle';
+
 import { GenerateOptions } from './Generate';
 import { Playlist } from './Playlist';
 import { mobile } from './util';

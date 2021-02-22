@@ -7,7 +7,6 @@ import { GeneratedPlaylist } from './GeneratedPlaylist';
 import { Loading } from './Loading';
 import { Options } from './Options';
 import { UserPlaylists } from './UserPlaylists';
-
 import { getUserPlaylists, getPlaylist, getRelated, mobile, Colors } from './util';
 
 const generate = style(

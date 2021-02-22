@@ -1,12 +1,12 @@
 import { X } from 'react-feather';
 import { Range } from 'react-range';
 import Switch from 'react-switch';
+import { media, style } from 'typestyle';
 
 import { GenerateOptions } from './Generate';
 import { Colors, mobile } from './util';
 
 import icon from './img/icon.svg';
-import { media, style } from 'typestyle';
 
 const containerStyle = style(
   { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 20 },
