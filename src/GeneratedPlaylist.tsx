@@ -24,11 +24,13 @@ export function GeneratedPlaylist(props: {
   generated: SpotifyApi.TrackObjectSimplified[];
   setGenerated: (generated: SpotifyApi.TrackObjectSimplified[] | undefined) => void;
 }) {
+  const [currentSong, setCurrentSong] = useState<string>();
   const [newPlaylistName, setNewPlaylistName] = useState('');
   const [playlistLink, setPlaylistLink] = useState<string>();
   const [saving, setSaving] = useState(false);
 
   const save = useCallback(async () => {
+    setCurrentSong(undefined);
     setSaving(true);
     await createPlaylist(props.generated, setPlaylistLink, newPlaylistName);
     setSaving(false);
@@ -44,6 +46,7 @@ export function GeneratedPlaylist(props: {
             setPlaylistLink(undefined);
             setNewPlaylistName('');
             setSaving(false);
+            setCurrentSong(undefined);
           }}
           style={{ display: 'flex', alignItems: 'center' }}
           disabled={saving}
@@ -93,7 +96,14 @@ export function GeneratedPlaylist(props: {
         )}
       </div>
       {props.generated.map((t) => (
-        <Song key={t.id} song={t} generated={props.generated} setGenerated={props.setGenerated} />
+        <Song
+          key={t.id}
+          song={t}
+          generated={props.generated}
+          setGenerated={props.setGenerated}
+          currentSong={currentSong}
+          setCurrentSong={setCurrentSong}
+        />
       ))}
     </div>
   );

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import { AlertTriangle, PauseCircle, PlayCircle, XCircle } from 'react-feather';
 import { media, style } from 'typestyle';
@@ -63,9 +62,9 @@ export function Song(props: {
   song: SpotifyApi.TrackObjectSimplified;
   generated: SpotifyApi.TrackObjectSimplified[];
   setGenerated: (generated: SpotifyApi.TrackObjectSimplified[]) => void;
+  currentSong: string | undefined;
+  setCurrentSong: (currentSong: string | undefined) => void;
 }) {
-  const [isHover, setIsHover] = useState(false);
-
   const { song } = props;
 
   return (
@@ -84,10 +83,16 @@ export function Song(props: {
         </div>
 
         <div className={buttons}>
-          <button className="noButton" onClick={() => setIsHover(!isHover)}>
+          <button
+            className="noButton"
+            onClick={() => {
+              if (props.currentSong === song.id) props.setCurrentSong(undefined);
+              else props.setCurrentSong(song.id);
+            }}
+          >
             {!song.preview_url || song.preview_url === null ? (
               <AlertTriangle className="iconButton" />
-            ) : isHover ? (
+            ) : props.currentSong === song.id ? (
               <>
                 <PauseCircle className="iconButton" />
                 <ReactAudioPlayer src={song.preview_url} autoPlay volume={0.75} />
