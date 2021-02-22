@@ -24,7 +24,7 @@ export function CustomModal(props: { modalOptions: ReactModal.Props; title: stri
         marginRight: '-46%',
         transform: 'translate(-52%, -50%)',
       },
-      overlay: { background: 'rgba(30,30,30,0.95)' },
+      overlay: { background: 'rgba(26,23,23,0.95)' },
     },
     bodyOpenClassName: 'modal-open',
     appElement: document.querySelector('.App') || undefined,

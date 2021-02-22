@@ -39,15 +39,24 @@ cssRule('button', {
       cursor: 'pointer',
     },
     '&:disabled': {
-      filter: 'grayscale(1)',
+      background: `${Colors.Grey} !important`,
     },
 
     '&.noButton': {
       background: 'none',
       padding: 0,
-      minWidth: 42,
+      minWidth: 36,
       fontSize: 0,
       borderRadius: 0,
+
+      $nest: {
+        '&:focus': {
+          background: Colors.Grey,
+        },
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
     },
   },
 });

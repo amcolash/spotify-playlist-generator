@@ -9,7 +9,7 @@ export const Colors = {
   Green: '#179433',
   GreenHover: '#18AC4D',
   DarkGreen: '#0A631E',
-  Grey: '#333333',
+  Grey: '#332E2E',
   Black: '#191414',
 };
 

@@ -59,7 +59,7 @@ export function Playlist(props: {
           <div style={{ marginLeft: 10, display: 'flex', alignItems: 'center' }}>{playlist.name}</div>
           <div style={{ flex: 1 }} />
           <a className="iconButton" href={playlist.external_urls.spotify} target="_blank" rel="noreferrer" style={{ margin: '0 0 0 18px' }}>
-            <img src={icon} style={{ height: 24, width: 24 }} alt="Link to song on spotify" />
+            <img src={icon} alt="Link to song on spotify" />
           </a>
         </div>
       </div>

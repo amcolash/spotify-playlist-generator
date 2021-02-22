@@ -21,7 +21,7 @@ const generate = style(
     flexDirection: 'column',
     padding: 20,
   },
-  media(mobile, { paddingBottom: 55 })
+  media(mobile, { paddingBottom: 55, padding: 10, height: 'calc(100% - 20px)', width: 'calc(100% - 20px)' })
 );
 
 export interface GenerateOptions {
@@ -71,7 +71,7 @@ export function Generate(props: { logout: () => void }) {
   return (
     <div className={generate}>
       {/* Logout buton */}
-      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: 30, position: 'relative' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: 10, marginBottom: 30, position: 'relative' }}>
         <button onClick={() => props.logout()}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <LogOut style={{ marginRight: 10 }} />

@@ -3,7 +3,7 @@ import { cssRule, media, style } from 'typestyle';
 
 import { Generate } from './Generate';
 import { Login } from './Login';
-import { mobile } from './util';
+import { Colors, mobile } from './util';
 
 import spotifyLogo from './img/Spotify_Logo_RGB_Green.png';
 
@@ -24,20 +24,43 @@ cssRule('.cover', {
   border: '1px solid #555',
 });
 
-cssRule('.iconButton', {
-  height: 24,
-  width: 24,
-  borderRadius: 8,
-  padding: 7,
-  border: `2px solid #000`,
-  transition: 'background 0.25s',
+cssRule(
+  '.iconButton',
+  {
+    height: 24,
+    width: 24,
+    borderRadius: 8,
+    padding: 7,
+    border: `2px solid #000`,
+    transition: 'background 0.25s',
 
-  $nest: {
-    '&:hover': {
-      background: 'rgba(0,0,0,0.75)',
+    $nest: {
+      '&:hover': {
+        background: Colors.Grey,
+      },
+      '&:focus': {
+        background: Colors.Grey,
+      },
+
+      img: {
+        width: 24,
+        height: 24,
+      },
     },
   },
-});
+  media(mobile, {
+    width: 20,
+    height: 20,
+    padding: 5,
+
+    $nest: {
+      img: {
+        width: 20,
+        height: 20,
+      },
+    },
+  })
+);
 
 const footer = style(
   {

@@ -29,4 +29,5 @@
   - [x] Playlist
   - [x] Songs?
 - [x] Little tutorial pages (choose a playlist and some options to generate new stuff, click on icons to open in spotify, remove / play items in the generated list)
+- [ ] Some sort of animated logo (either on load or on login twitch)
 - [ ] Blog Post
