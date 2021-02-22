@@ -73,7 +73,7 @@ export function Song(props: {
             ) : isHover ? (
               <>
                 <PauseCircle className="iconButton" width={playSize} height={playSize} />
-                <ReactAudioPlayer src={song.preview_url} autoPlay volume={0.85} />
+                <ReactAudioPlayer src={song.preview_url} autoPlay volume={0.75} />
               </>
             ) : (
               <PlayCircle className="iconButton" width={playSize} height={playSize} />

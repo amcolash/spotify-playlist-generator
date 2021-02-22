@@ -31,17 +31,15 @@ function login(setAuthenticated: (authenticated: boolean) => void) {
   }
 }
 
-const container = style(
-  {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    height: '100vh',
-  },
-  media(mobile, { height: 'calc(100vh - 46px)' })
-);
+const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  minHeight: 'calc(100vh - 40px)',
+  padding: 20,
+});
 
 const title = style({ fontSize: 72 }, media(mobile, { fontSize: 52 }));
 const logo = style({ height: 156, margin: 42 }, media(mobile, { height: 156, margin: 16 }), media(shortMobile, { margin: 0 }));

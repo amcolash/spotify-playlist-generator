@@ -72,14 +72,6 @@ const fadeIn = keyframes({
   '100%': { opacity: 1 },
 });
 
-if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
-  try {
-    window.screen.orientation.lock('portrait');
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 ReactDOM.render(
   <React.StrictMode>
     <div style={{ opacity: 0, animation: fadeIn, animationDelay: '0.5s', animationDuration: '0.25s', animationFillMode: 'forwards' }}>

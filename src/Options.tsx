@@ -1,28 +1,14 @@
-import { X } from 'react-feather';
 import { Range } from 'react-range';
 import Switch from 'react-switch';
-import { media, style } from 'typestyle';
 
 import { GenerateOptions } from './Generate';
-import { Colors, mobile } from './util';
+import { Colors } from './util';
 
 import icon from './img/icon.svg';
 
-const containerStyle = style(
-  { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 20 },
-  media(mobile, { padding: 0 })
-);
-
 export function Options(props: { options: GenerateOptions; setOptions: (options: GenerateOptions) => void; generatePlaylist: () => void }) {
   return (
-    <div className={containerStyle}>
-      <X
-        onClick={() => props.setOptions({ ...props.options, playlist: undefined })}
-        style={{ position: 'absolute', top: 14, right: 14, cursor: 'pointer' }}
-      />
-
-      <h2 style={{ marginTop: 0 }}>Playlist Generation Options</h2>
-
+    <>
       {props.options.playlist && <label>Source Playlist: {props.options.playlist.name}</label>}
 
       <label style={{ marginTop: 24, marginBottom: 12 }}>Playlist Size</label>
@@ -73,7 +59,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
             e.preventDefault();
           }}
         >
-          Ordered
+          Precise
         </span>
         <Switch
           onChange={(checked) => props.setOptions({ ...props.options, shuffle: checked })}
@@ -91,7 +77,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
             e.preventDefault();
           }}
         >
-          Shuffled
+          Balanced
         </span>
       </label>
 
@@ -104,7 +90,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
             e.preventDefault();
           }}
         >
-          Playlist Tracks
+          Similar Tracks
         </span>
         <Switch
           onChange={(checked, e) => props.setOptions({ ...props.options, trackSeed: !checked })}
@@ -122,7 +108,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
             e.preventDefault();
           }}
         >
-          Playlist Artists
+          Similar Artists
         </span>
       </label>
 
@@ -130,6 +116,6 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
         <img src={icon} style={{ width: 32, filter: 'grayscale(1) brightness(2)', marginRight: 6 }} alt="" />
         DiscoList
       </button>
-    </div>
+    </>
   );
 }

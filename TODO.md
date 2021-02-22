@@ -14,7 +14,7 @@
 
 - [x] Handle re-auth after token expires (60 minutes / 3600 secs) - not very good, but it works...
   - [x] Logout Button
-- [ ] Generation options
+- [x] Generation options
   - [x] Shuffle list
   - [x] Choose playlist size
   - [x] Artist or track seed
@@ -28,5 +28,5 @@
 - [x] Spotify Linking
   - [x] Playlist
   - [x] Songs?
-- [ ] Little tutorial pages (choose a playlist and some options to generate new stuff, click on icons to open in spotify, remove / play items in the generated list)
+- [x] Little tutorial pages (choose a playlist and some options to generate new stuff, click on icons to open in spotify, remove / play items in the generated list)
 - [ ] Blog Post

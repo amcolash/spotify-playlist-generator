@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import { LogOut } from 'react-feather';
-import Modal from 'react-modal';
 import { media, style } from 'typestyle';
 
+import { CustomModal } from './CustomModal';
 import { GeneratedPlaylist } from './GeneratedPlaylist';
 import { Loading } from './Loading';
 import { Options } from './Options';
+import { Tutorial } from './Tutorial';
 import { UserPlaylists } from './UserPlaylists';
-import { getUserPlaylists, getPlaylist, getRelated, mobile, Colors } from './util';
+import { getUserPlaylists, getPlaylist, getRelated, mobile } from './util';
 
 const generate = style(
   {
@@ -31,6 +32,7 @@ export interface GenerateOptions {
 }
 
 export function Generate(props: { logout: () => void }) {
+  const [showTutorial, setShowTutorial] = useState(!localStorage.getItem('spotifyTutorial'));
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
 
   const [options, setOptions] = useState<GenerateOptions>({
@@ -59,8 +61,16 @@ export function Generate(props: { logout: () => void }) {
     setIsGenerating(false);
   }, [options]);
 
+  const closeTutorial = useCallback(() => {
+    setShowTutorial(false);
+
+    // Just in case I ever want fancier tutorials
+    localStorage.setItem('spotifyTutorial', JSON.stringify({ 1: true }));
+  }, []);
+
   return (
     <div className={generate}>
+      {/* Logout buton */}
       <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginBottom: 30, position: 'relative' }}>
         <button onClick={() => props.logout()}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -70,28 +80,29 @@ export function Generate(props: { logout: () => void }) {
         </button>
       </div>
 
-      <Modal
-        isOpen={options.playlist !== undefined && !isGenerating && !generated}
-        onRequestClose={() => setOptions({ ...options, playlist: undefined })}
-        contentLabel="Playlist Generation Options"
-        style={{
-          content: {
-            maxHeight: 'calc(95vh - 40px)',
-            background: Colors.Black,
-            top: '50%',
-            left: '52%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-46%',
-            transform: 'translate(-52%, -50%)',
-          },
-          overlay: { background: 'rgba(30,30,30,0.95)' },
+      {/* Options Modal */}
+      <CustomModal
+        modalOptions={{
+          isOpen: options.playlist !== undefined && !isGenerating && !generated,
+          onRequestClose: () => setOptions({ ...options, playlist: undefined }),
+          contentLabel: 'Playlist Generation Options',
         }}
-        bodyOpenClassName="modal-open"
-        appElement={document.querySelector('.App') || undefined}
+        title="Playlist Generation Options"
       >
         <Options options={options} setOptions={setOptions} generatePlaylist={generatePlaylist} />
-      </Modal>
+      </CustomModal>
+
+      {/* Tutorial Modal */}
+      <CustomModal
+        modalOptions={{
+          isOpen: showTutorial,
+          onRequestClose: closeTutorial,
+          contentLabel: 'DiscoList Welcome Info',
+        }}
+        title="Welcome to DiscoList!"
+      >
+        <Tutorial closeTutorial={closeTutorial} />
+      </CustomModal>
 
       {!playlists && <Loading text="Loading Your Playlists" />}
       {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} options={options} setOptions={setOptions} />}
