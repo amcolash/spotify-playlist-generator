@@ -1,6 +1,7 @@
 {
   "short_name": "DiscoList",
   "name": "DiscoList",
+  "description": "Discover new music by generating Spotify playlists based on your own existing ones",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,9 +19,11 @@
       "sizes": "512x512"
     }
   ],
+  "scope": "/spotify-playlist-generator",
   "start_url": "/spotify-playlist-generator",
   "display": "standalone",
   "orientation": "portrait",
-  "theme_color": "#1DB954",
-  "background_color": "#151515"
+  "theme_color": "#179433",
+  "background_color": "#191414",
+  "splash_pages": null
 }
