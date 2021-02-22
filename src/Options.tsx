@@ -21,7 +21,7 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
         style={{ position: 'absolute', top: 14, right: 14, cursor: 'pointer' }}
       />
 
-      <h2>Playlist Generation Options</h2>
+      <h2 style={{ marginTop: 0 }}>Playlist Generation Options</h2>
 
       {props.options.playlist && <label>Source Playlist: {props.options.playlist.name}</label>}
 

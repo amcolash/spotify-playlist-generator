@@ -50,6 +50,13 @@ cssRule('button', {
   },
 });
 
+cssRule('input', {
+  borderRadius: 6,
+  border: 'none',
+  padding: 8,
+  height: 28,
+});
+
 cssRule('::-webkit-scrollbar', {
   backgroundColor: '#202324',
 });

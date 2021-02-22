@@ -24,6 +24,7 @@
 - [x] Web manifest / icon / tdb title
 - [x] Mobile friendly
 - [x] Song previews
+  - [x] Get rid of hover preview, make it an explicit click on the play button
 - [x] Spotify Linking
   - [x] Playlist
   - [x] Songs?

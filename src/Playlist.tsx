@@ -43,10 +43,7 @@ export function Playlist(props: {
         if (e.key === 'Enter') props.setOptions({ ...props.options, playlist: playlist });
       }}
     >
-      <div
-        className="box"
-        style={{ background: props.options.playlist && props.options.playlist.id === playlist.id ? Colors.Grey : undefined }}
-      >
+      <div className="box">
         <div
           className="cover"
           style={{
