@@ -8,7 +8,7 @@ import { Loading } from './Loading';
 import { Options } from './Options';
 import { Tutorial } from './Tutorial';
 import { UserPlaylists } from './UserPlaylists';
-import { getUserPlaylists, getPlaylist, getRelated, mobile } from './util';
+import { getUserPlaylists, getPlaylist, getRelated, mobile, Tutorials } from './util';
 
 const generate = style(
   {
@@ -32,7 +32,8 @@ export interface GenerateOptions {
 }
 
 export function Generate(props: { logout: () => void }) {
-  const [showTutorial, setShowTutorial] = useState(!localStorage.getItem('spotifyTutorial'));
+  const [tutorialId, setTutorialId] = useState(1);
+  const [showTutorial, setShowTutorial] = useState(false);
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
 
   const [options, setOptions] = useState<GenerateOptions>({
@@ -45,6 +46,11 @@ export function Generate(props: { logout: () => void }) {
   const [generated, setGenerated] = useState<SpotifyApi.TrackObjectSimplified[]>();
 
   useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('spotifyTutorial') || '{}')[1]) {
+      setTutorialId(1);
+      setShowTutorial(true);
+    }
+
     getUserPlaylists().then((data) => setPlaylists(data));
   }, []);
 
@@ -64,9 +70,9 @@ export function Generate(props: { logout: () => void }) {
   const closeTutorial = useCallback(() => {
     setShowTutorial(false);
 
-    // Just in case I ever want fancier tutorials
-    localStorage.setItem('spotifyTutorial', JSON.stringify({ 1: true }));
-  }, []);
+    const existing = JSON.parse(localStorage.getItem('spotifyTutorial') || '{}');
+    localStorage.setItem('spotifyTutorial', JSON.stringify({ ...existing, [tutorialId]: true }));
+  }, [tutorialId]);
 
   return (
     <div className={generate}>
@@ -97,11 +103,11 @@ export function Generate(props: { logout: () => void }) {
         modalOptions={{
           isOpen: showTutorial,
           onRequestClose: closeTutorial,
-          contentLabel: 'DiscoList Welcome Info',
+          contentLabel: Tutorials[tutorialId].title,
         }}
-        title="Welcome to DiscoList!"
+        title={Tutorials[tutorialId].title}
       >
-        <Tutorial closeTutorial={closeTutorial} />
+        <Tutorial tutorialInfo={Tutorials[tutorialId]} closeTutorial={closeTutorial} />
       </CustomModal>
 
       {!playlists && <Loading text="Loading Your Playlists" />}

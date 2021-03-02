@@ -1,5 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 import { GenerateOptions } from './Generate';
+import { TutorialInfo } from './Tutorial';
 
 export const mobile = { maxWidth: 450 };
 export const shortMobile = { maxHeight: 575 };
@@ -11,6 +12,26 @@ export const Colors = {
   DarkGreen: '#0A631E',
   Grey: '#332E2E',
   Black: '#191414',
+};
+
+export const Tutorials: { [id: number]: TutorialInfo } = {
+  1: {
+    title: 'Welcome to DiscoList!',
+    content: (
+      <>
+        <p>
+          DiscoList is a free tool that helps you discover new music. By using Spotify's own recommendation algorithms, you can generate new
+          and unque playlists based on your own existing playlists.
+        </p>
+        <p>
+          There are a few options that you can use to tweak your new playlists. Go wild - there are no wrong choices as long as you find
+          good music.
+        </p>
+        <p>To get started, just choose a playlist.</p>
+      </>
+    ),
+    closeText: "Let's Get Started!",
+  },
 };
 
 // Useful code from https://stackoverflow.com/questions/58964265/spotify-implicit-grant-flow-with-react-user-login

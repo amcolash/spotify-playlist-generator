@@ -6,8 +6,16 @@ import { media, style } from 'typestyle';
 import { Colors, mobile } from './util';
 
 const containerStyle = style(
-  { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: 20 },
-  media(mobile, { padding: 0 })
+  {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    padding: 20,
+    position: 'relative',
+  },
+  media(mobile, { padding: '12px 0' })
 );
 
 export function CustomModal(props: { modalOptions: ReactModal.Props; title: string; children: ReactElement }) {
@@ -16,15 +24,12 @@ export function CustomModal(props: { modalOptions: ReactModal.Props; title: stri
     style: {
       content: {
         maxHeight: 'calc(95vh - 40px)',
+        maxWidth: 550,
         background: Colors.Black,
-        top: '50%',
-        left: '52%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-46%',
-        transform: 'translate(-52%, -50%)',
+        position: undefined,
+        margin: 20,
       },
-      overlay: { background: 'rgba(26,23,23,0.95)' },
+      overlay: { background: 'rgba(26,23,23,0.95)', display: 'flex', alignItems: 'center', justifyContent: 'center' },
     },
     bodyOpenClassName: 'modal-open',
     appElement: document.querySelector('.App') || undefined,
@@ -33,7 +38,10 @@ export function CustomModal(props: { modalOptions: ReactModal.Props; title: stri
   return (
     <Modal {...props.modalOptions} {...modalOptions}>
       <div className={containerStyle}>
-        <X onClick={props.modalOptions.onRequestClose} style={{ position: 'absolute', top: 14, right: 14, cursor: 'pointer' }} />
+        <X
+          onClick={props.modalOptions.onRequestClose}
+          style={{ position: 'absolute', top: -10, right: -10, cursor: 'pointer', padding: 4, background: 'rgba(25, 20, 20, 0.85)' }}
+        />
 
         <h2 style={{ marginTop: 0, textAlign: 'center' }}>{props.title}</h2>
 
