@@ -35,6 +35,7 @@ export function Generate(props: { logout: () => void }) {
   const [tutorialId, setTutorialId] = useState(1);
   const [showTutorial, setShowTutorial] = useState(false);
   const [playlists, setPlaylists] = useState<SpotifyApi.PlaylistObjectSimplified[]>();
+  const [progress, setProgress] = useState<{ current: number; total: number }>();
 
   const [options, setOptions] = useState<GenerateOptions>({
     shuffle: false,
@@ -59,8 +60,11 @@ export function Generate(props: { logout: () => void }) {
 
     setIsGenerating(true);
 
+    setProgress(undefined);
     const playlist = await getPlaylist(options.playlist.id);
-    const related = await getRelated(playlist, options);
+
+    setProgress({ current: 0, total: playlist.length });
+    const related = await getRelated(playlist, options, setProgress);
 
     setOptions({ ...options, playlist: undefined });
     setGenerated(related);
@@ -112,7 +116,7 @@ export function Generate(props: { logout: () => void }) {
 
       {!playlists && <Loading text="Loading Your Playlists" />}
       {!isGenerating && playlists && !generated && <UserPlaylists playlists={playlists} options={options} setOptions={setOptions} />}
-      {isGenerating && <Loading text="Finding Related Music" />}
+      {isGenerating && <Loading text="Finding Related Music" progress={progress} />}
       {generated && <GeneratedPlaylist generated={generated} setGenerated={setGenerated} />}
     </div>
   );

@@ -29,5 +29,10 @@
   - [x] Playlist
   - [x] Songs?
 - [x] Little tutorial pages (choose a playlist and some options to generate new stuff, click on icons to open in spotify, remove / play items in the generated list)
+- [x] Progress bar
+- [ ] Multiple requests at once to speed up loading
+- [ ] More options (dancability, energy, bpm, etc)
+- [ ] Less songs per group (Only 1 per 5)
+- [ ] Show estimated playlist size
 - [ ] Some sort of animated logo (either on load or on login twitch)
 - [ ] Blog Post

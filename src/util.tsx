@@ -125,7 +125,8 @@ export async function getPlaylist(id: string): Promise<SpotifyApi.PlaylistTrackO
 
 export async function getRelated(
   playlist: SpotifyApi.PlaylistTrackObject[],
-  options: GenerateOptions
+  options: GenerateOptions,
+  setProgress: (progress: { current: number; total: number }) => void
 ): Promise<SpotifyApi.TrackObjectSimplified[]> {
   return new Promise(async (resolve, reject) => {
     const related: SpotifyApi.TrackObjectSimplified[] = [];
@@ -159,6 +160,8 @@ export async function getRelated(
           handleError(error);
           return;
         }
+
+        setProgress({ current: i, total: playlist.length });
       }
     }
 

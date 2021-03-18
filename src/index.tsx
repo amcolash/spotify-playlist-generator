@@ -68,6 +68,34 @@ cssRule('input', {
   height: 28,
 });
 
+const progressRadius = 10;
+cssRule('progress', {
+  '-webkit-appearance': 'none',
+  '-moz-appearance': 'none',
+  appearance: 'none',
+
+  backgroundColor: Colors.Grey,
+  color: Colors.Green,
+  borderRadius: progressRadius,
+
+  $nest: {
+    '&::-webkit-progress-bar': {
+      backgroundColor: Colors.Grey,
+      borderRadius: progressRadius,
+      $unique: true,
+    },
+    '&::-webkit-progress-value': {
+      backgroundColor: Colors.Green,
+      borderRadius: progressRadius,
+    },
+    '&::-moz-progress-bar': {
+      backgroundColor: Colors.Grey,
+      borderRadius: progressRadius,
+      $unique: true,
+    },
+  },
+});
+
 cssRule('::-webkit-scrollbar', {
   backgroundColor: '#202324',
 });
