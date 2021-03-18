@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/spotify-playlist-generator/static/js/main.74f19c75.chunk.js",
-    "main.js.map": "/spotify-playlist-generator/static/js/main.74f19c75.chunk.js.map",
+    "main.js": "/spotify-playlist-generator/static/js/main.8182dfce.chunk.js",
+    "main.js.map": "/spotify-playlist-generator/static/js/main.8182dfce.chunk.js.map",
     "runtime-main.js": "/spotify-playlist-generator/static/js/runtime-main.03013de0.js",
     "runtime-main.js.map": "/spotify-playlist-generator/static/js/runtime-main.03013de0.js.map",
-    "static/js/2.782d0feb.chunk.js": "/spotify-playlist-generator/static/js/2.782d0feb.chunk.js",
-    "static/js/2.782d0feb.chunk.js.map": "/spotify-playlist-generator/static/js/2.782d0feb.chunk.js.map",
+    "static/js/2.c1b97395.chunk.js": "/spotify-playlist-generator/static/js/2.c1b97395.chunk.js",
+    "static/js/2.c1b97395.chunk.js.map": "/spotify-playlist-generator/static/js/2.c1b97395.chunk.js.map",
     "index.html": "/spotify-playlist-generator/index.html",
-    "static/js/2.782d0feb.chunk.js.LICENSE.txt": "/spotify-playlist-generator/static/js/2.782d0feb.chunk.js.LICENSE.txt",
+    "static/js/2.c1b97395.chunk.js.LICENSE.txt": "/spotify-playlist-generator/static/js/2.c1b97395.chunk.js.LICENSE.txt",
     "static/media/Spotify_Icon_RGB_Green.cd66b8f6.png": "/spotify-playlist-generator/static/media/Spotify_Icon_RGB_Green.cd66b8f6.png",
     "static/media/Spotify_Logo_RGB_Green.0c4ae91b.png": "/spotify-playlist-generator/static/media/Spotify_Logo_RGB_Green.0c4ae91b.png",
     "static/media/icon.9570cc01.svg": "/spotify-playlist-generator/static/media/icon.9570cc01.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.03013de0.js",
-    "static/js/2.782d0feb.chunk.js",
-    "static/js/main.74f19c75.chunk.js"
+    "static/js/2.c1b97395.chunk.js",
+    "static/js/main.8182dfce.chunk.js"
   ]
 }
