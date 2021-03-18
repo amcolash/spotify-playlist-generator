@@ -133,37 +133,65 @@ export async function getRelated(
 
     if (options.shuffle) shuffle(playlist);
 
+    let tasks = [];
     let seeds = '';
+    let currentProgress = 0;
+    let taskStart = Date.now();
+
+    // Need to have an outer function to handle incrementing as promises get a value, not reference passed
+    const incrementProgress = () => {
+      currentProgress += 5;
+      setProgress({ current: currentProgress, total: playlist.length });
+    };
+
     for (let i = 1; i <= playlist.length; i++) {
       if (playlist[i - 1].is_local) continue;
+
+      // Run up to 5 tasks at a time to make things load much faster
+      if (tasks.length === 5) {
+        // Add a bit of handling for throttles (5 requests per 500ms)
+        const timeSince = Date.now() - taskStart;
+        if (Date.now() - taskStart < 500) {
+          console.log('Waiting for throttle', 500 - timeSince);
+          await new Promise((resolve) => setTimeout(resolve, 500 - timeSince));
+        }
+
+        await Promise.all(tasks);
+        tasks = [];
+
+        taskStart = Date.now();
+      }
 
       if (options.trackSeed) seeds += playlist[i - 1].track.id + (i % 5 !== 0 ? ',' : '');
       else seeds += playlist[i - 1].track.artists[0].id + (i % 5 !== 0 ? ',' : '');
 
       if (i % 5 === 0 || i === playlist.length) {
-        try {
-          let rec;
-          rec = await spotify.getRecommendations({
+        let rec = spotify
+          .getRecommendations({
             seed_tracks: options.trackSeed ? seeds : undefined,
             seed_artists: options.trackSeed ? undefined : seeds,
             limit: options.resultsPerGroup,
+          })
+          .then((value) => {
+            // Ensure there are no duplicated. Can't use a Set here since {} !== {}
+            value.body.tracks.forEach((t) => {
+              const found = related.findIndex((f) => f.id === t.id);
+              if (found === -1) related.push(t);
+            });
+
+            incrementProgress();
+          })
+          .catch((error) => {
+            handleError(error);
           });
 
-          // Ensure there are no duplicated. Can't use a Set here since {} !== {}
-          rec.body.tracks.forEach((t) => {
-            const found = related.findIndex((f) => f.id === t.id);
-            if (found === -1) related.push(t);
-          });
-
-          seeds = '';
-        } catch (error) {
-          handleError(error);
-          return;
-        }
-
-        setProgress({ current: i, total: playlist.length });
+        tasks.push(rec);
+        seeds = '';
       }
     }
+
+    // Handle any remaining tasks (less than 5 in the queue)
+    await Promise.all(tasks);
 
     resolve(related);
   });
