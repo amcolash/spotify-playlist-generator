@@ -170,7 +170,7 @@ export async function getRelated(
           .getRecommendations({
             seed_tracks: options.trackSeed ? seeds : undefined,
             seed_artists: options.trackSeed ? undefined : seeds,
-            limit: options.resultsPerGroup,
+            limit: options.resultsPerGroup || 1,
           })
           .then((value) => {
             // Ensure there are no duplicated. Can't use a Set here since {} !== {}

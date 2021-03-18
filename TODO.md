@@ -33,6 +33,6 @@
 - [x] Multiple requests at once to speed up loading
 - [ ] More options (dancability, energy, bpm, etc)
 - [ ] Less songs per group (Only 1 per 5)
-- [ ] Show estimated playlist size
+- [x] Show estimated playlist size
 - [ ] Some sort of animated logo (either on load or on login twitch)
 - [ ] Blog Post

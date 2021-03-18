@@ -7,16 +7,21 @@ import { Colors } from './util';
 import icon from './img/icon.svg';
 
 export function Options(props: { options: GenerateOptions; setOptions: (options: GenerateOptions) => void; generatePlaylist: () => void }) {
+  const realEstimate = Math.floor(
+    ((props.options.playlist ? props.options.playlist.tracks.total : 1) * (props.options.resultsPerGroup || 1)) / 5
+  );
+  const roundedEstimate = Math.max(5, (Math.floor(realEstimate / 5) + 1) * 5);
+
   return (
     <>
       {props.options.playlist && <label>Source Playlist: {props.options.playlist.name}</label>}
 
-      <label style={{ marginTop: 24, marginBottom: 12 }}>Playlist Size</label>
+      {props.options.playlist && <label style={{ marginTop: 24, marginBottom: 12 }}>Playlist Size (About {roundedEstimate} Songs)</label>}
       <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginBottom: 10 }}>
-        <label style={{ marginRight: 20 }}>Similar</label>
+        <label style={{ marginRight: 20 }}>Smaller</label>
         <Range
           step={5}
-          min={5}
+          min={0}
           max={25}
           values={[props.options.resultsPerGroup]}
           onChange={(values) => props.setOptions({ ...props.options, resultsPerGroup: values[0] })}
@@ -43,6 +48,18 @@ export function Options(props: { options: GenerateOptions; setOptions: (options:
                 borderRadius: '100%',
                 border: `1px solid ${Colors.White}`,
                 backgroundColor: Colors.Green,
+              }}
+            />
+          )}
+          renderMark={({ props, index }) => (
+            <div
+              {...props}
+              style={{
+                ...props.style,
+                height: 16,
+                width: 6,
+                borderRadius: 4,
+                backgroundColor: index === 1 ? Colors.Green : 'transparent',
               }}
             />
           )}
