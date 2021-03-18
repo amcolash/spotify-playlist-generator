@@ -4,6 +4,7 @@ import { GenerateOptions } from './Generate';
 import { Colors } from './util';
 
 import icon from './img/Spotify_Icon_RGB_Green.png';
+import { Music } from 'react-feather';
 
 const s = style({
   $nest: {
@@ -47,13 +48,19 @@ export function Playlist(props: {
         <div
           className="cover"
           style={{
+            background: !playlist.images[2] && !playlist.images[0] ? Colors.Black : undefined,
             backgroundImage: playlist.images[2]
               ? `url(${playlist.images[2].url})`
               : playlist.images[0]
               ? `url(${playlist.images[0].url})`
               : '',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+        >
+          {!playlist.images[2] && !playlist.images[0] && <Music color={Colors.Grey} />}
+        </div>
 
         <div style={{ display: 'flex', width: '100%' }}>
           <div style={{ marginLeft: 10, display: 'flex', alignItems: 'center' }}>{playlist.name}</div>

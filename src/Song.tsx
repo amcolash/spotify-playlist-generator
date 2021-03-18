@@ -1,8 +1,8 @@
 import ReactAudioPlayer from 'react-audio-player';
-import { AlertTriangle, PauseCircle, PlayCircle, XCircle } from 'react-feather';
+import { AlertTriangle, Music, PauseCircle, PlayCircle, XCircle } from 'react-feather';
 import { media, style } from 'typestyle';
 
-import { mobile } from './util';
+import { Colors, mobile } from './util';
 
 import icon from './img/Spotify_Icon_RGB_Green.png';
 
@@ -73,8 +73,16 @@ export function Song(props: {
         <div className={coverInfo}>
           <div
             className={`cover ${cover}`}
-            style={{ backgroundImage: (song as any).album.images[2] ? `url(${(song as any).album.images[2].url})` : '' }}
-          />
+            style={{
+              background: !(song as any).album.images[2] ? Colors.Black : undefined,
+              backgroundImage: (song as any).album.images[2] ? `url(${(song as any).album.images[2].url})` : '',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {!(song as any).album.images[2] && <Music color={Colors.Grey} />}
+          </div>
 
           <div className={info}>
             <div>{song.name}</div>
